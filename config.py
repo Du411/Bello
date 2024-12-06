@@ -14,3 +14,15 @@ class Config:
     # Server settings
     SERVER_HOST = os.getenv('SERVER_HOST')
     SERVER_PORT = int(os.getenv('SERVER_PORT'))
+
+
+##Test
+print("=== Environment Variables ===")
+print(f"DB_NAME: {Config.DB_NAME}")
+print(f"DB_USER: {Config.DB_USER}")
+print(f"DB_PASSWORD: {Config.DB_PASSWORD}")
+print(f"DB_HOST: {Config.DB_HOST}")
+print(f"DB_PORT: {Config.DB_PORT}")
+print(f"SERVER_HOST: {Config.SERVER_HOST}")
+print(f"SERVER_PORT: {Config.SERVER_PORT}")
+print("==========================")
