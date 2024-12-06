@@ -1,6 +1,5 @@
--- Create database if not exists
-SELECT 'CREATE DATABASE bello'
-WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'bello');
+CREATE DATABASE bello;
+\c bello;
 -- Create tables for Bello platform
 SET client_encoding = 'UTF8';
 -- Create USER table
