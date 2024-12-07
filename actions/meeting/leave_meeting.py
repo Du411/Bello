@@ -13,11 +13,20 @@ class LeaveMeetingAction(Action):
                 self.send_message(conn, "You are not participating in any meetings.")
                 return None
             
+            self.send_message(conn, "\nYour meetings:")
+            for index, meeting in enumerate(meetings, 1):
+                self.send_message(conn, f"{index}. {meeting['content']} at {meeting['event_place']}")
+            
             choice = self.read_input(conn, "Select meeting to leave (0 to cancel)")
-            if choice == "0":
+            if choice == "0" or not choice.isdigit():
                 return None
                 
-            meeting = meetings[int(choice) - 1]
+            index = int(choice) - 1
+            if index < 0 or index >= len(meetings):
+                self.send_message(conn, "Invalid choice!")
+                return None
+                
+            meeting = meetings[index]
             
             if meeting['holder_id'] == user.get_userid():
                 self.send_message(conn, "As the meeting holder, you cannot leave the meeting. You can cancel it instead.")

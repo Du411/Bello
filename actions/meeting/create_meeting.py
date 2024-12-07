@@ -29,9 +29,9 @@ class CreateMeetingAction(Action):
         choices = self.read_input(conn, "Select languages (e.g., 1,3,5)")
         languages = []
         for c in choices.split(','):
-            idx = int(c.strip())
-            if 1 <= idx <= len(self.LANGUAGES):
-                languages.append(self.LANGUAGES[idx - 1])
+            index = int(c.strip())
+            if 1 <= index <= len(self.LANGUAGES):
+                languages.append(self.LANGUAGES[index - 1])
                 
         if not languages:
             self.send_message(conn, "At least one language must be selected!")

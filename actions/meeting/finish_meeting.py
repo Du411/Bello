@@ -14,9 +14,9 @@ class FinishMeetingAction(Action):
                 return None
 
             self.send_message(conn, "\nYour hosted meetings:")
-            for idx, meeting in enumerate(meetings, 1):
+            for index, meeting in enumerate(meetings, 1):
                 self.send_message(conn, 
-                    f"{idx}. {meeting['content']} at {meeting['event_place']} "
+                    f"{index}. {meeting['content']} at {meeting['event_place']} "
                     f"on {meeting['event_date']} ({meeting['num_participant']}/{meeting['max_participant']} participants)")
             
             choice = self.read_input(conn, "Select meeting to finish (0 to go back)")
