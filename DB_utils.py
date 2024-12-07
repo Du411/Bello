@@ -98,8 +98,9 @@ class DatabaseManager:
             if not success:
                 return False
 
+            role = 'Admin' if user_data.get('is_admin', False) else 'User'
             role_query = 'INSERT INTO "user_role" (User_id, Role) VALUES (%s, %s)'
-            return self.execute_query(role_query, (user_id, 'User'))
+            return self.execute_query(role_query, (user_id, role))
 
         except Exception as e:
             print(f"Error creating user: {e}")

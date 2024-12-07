@@ -2,6 +2,8 @@ from ..Action import Action
 from datetime import datetime
 
 class SignUpAction(Action):
+    ADMIN_AUTH_CODE = "belloadmin"
+    
     def __init__(self):
         super().__init__("Sign Up")
         
@@ -59,6 +61,11 @@ class SignUpAction(Action):
                 self.send_message(conn, "City name too long, will be truncated to 20 characters")
                 city = city[:20]
             
+            auth_code = self.read_input(conn, "Enter admin authorization code (enter 'none' to skip)")
+            is_admin = False
+            if auth_code.lower() != 'none':
+                is_admin = (auth_code == self.ADMIN_AUTH_CODE)
+            
             if db_manager and db_manager.check_account_exists(account):
                 self.send_message(conn, "Account already exists!")
                 return False
@@ -75,12 +82,13 @@ class SignUpAction(Action):
                     email=email,
                     sex=sex,
                     birthday=birthday,
-                    register_time=datetime.now()
+                    register_time=datetime.now(),
+                    is_admin=is_admin
                 )
                 
                 if success:
-                    self.send_message(conn, "Registration successful!")
-                    self.send_message(conn, "You can now log in and add more personal details in your profile.")
+                    role = "Admin" if is_admin else "User"
+                    self.send_message(conn, f"Registration successful! Role: {role}")
                     return True
                 else:
                     self.send_message(conn, "Registration failed!")
